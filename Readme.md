@@ -59,24 +59,41 @@ Follow these steps to set up and run the project locally.
 
 ### Endpoint
 - **Method**: `GET`
-- **URL**: `/`
+- **URL**: `/api/classify-number`
+
+### Request Parameters
+- **number**: The number to classify (passed as a query parameter).
 
 ### Request/Response Format
+
+#### Successful Response (200 OK)
 The API returns a JSON response with the following fields:
 ```json
 {
-  "email": "your-email@example.com",
-  "current_datetime": "2025-01-30T09:30:00Z",
-  "github_url": "https://github.com/yourusername/your-repo"
+    "number": 371,
+    "is_prime": false,
+    "is_perfect": false,
+    "properties": ["armstrong", "odd"],
+    "digit_sum": 11,
+    "fun_fact": "371 is an Armstrong number because 3^3 + 7^3 + 1^3 = 371"
+}
+```
+
+#### Error Response (400 Bad Request)
+If the input is invalid, the API returns a JSON response with the following fields:
+```json
+{
+    "number": "alphabet",
+    "error": true
 }
 ```
 
 ## Example Usage
 
-To use the API, you can make a GET request to the root URL. Here's an example using `curl`:
+To use the API, you can make a GET request to the `/api/classify-number` endpoint with a query parameter. Here's an example using `curl`:
 
 ```bash
-curl http://127.0.0.1:5000/
+curl "http://127.0.0.1:5000/api/classify-number?number=371"
 ```
 
 ## Backlink
