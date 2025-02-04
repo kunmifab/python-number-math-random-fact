@@ -1,6 +1,6 @@
 # HNG API
 
-This is a simple API that returns my registered email, the current datetime in ISO 8601 format, and the GitHub URL of the project. It is designed to demonstrate basic API functionality using Python and Flask.
+This is a simple API that classifies numbers based on various properties such as primality, perfection, and whether they are Armstrong numbers. It also provides fun facts about numbers. The API is designed to demonstrate basic API functionality using Python and Flask.
 
 ## Table of Contents
 - [Setup Instructions](#setup-instructions)
