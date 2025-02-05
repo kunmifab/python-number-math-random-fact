@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
 import requests
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -13,7 +14,7 @@ def index():
 def classify_number():
     number = request.args.get('number')
     if number is None or not number.isdigit() or int(number) < 0:
-        return jsonify({'number': number, "error": True}), 400
+        return Response(json.dumps({'number': number, "error": True}), mimetype='application/json'), 400
     
     number = int(number)
     def is_prime(n):
@@ -57,6 +58,6 @@ def classify_number():
         "fun_fact": fun_fact
     }
 
-    return jsonify(response), 200
+    return Response(json.dumps(response, sort_keys=False), mimetype='application/json'), 200
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
