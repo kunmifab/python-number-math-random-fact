@@ -11,10 +11,11 @@ def index():
 
 @app.route('/api/classify-number')
 def classify_number():
-    number = request.args.get('number', type=int)
-    if number is None or number < 0:
+    number = request.args.get('number')
+    if number is None or not number.isdigit() or int(number) < 0:
         return jsonify({'number': number, "error": True}), 400
-
+    
+    number = int(number)
     def is_prime(n):
         if n <= 1:
             return False
