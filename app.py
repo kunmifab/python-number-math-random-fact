@@ -13,10 +13,11 @@ def index():
 @app.route('/api/classify-number')
 def classify_number():
     number = request.args.get('number')
-    if number is None or not number.isdigit() or int(number) < 0:
+    try:
+        number = int(number)
+    except (TypeError, ValueError):
         return Response(json.dumps({'number': number, "error": True}), mimetype='application/json'), 400
-    
-    number = int(number)
+
     def is_prime(n):
         if n <= 1:
             return False
@@ -30,11 +31,13 @@ def classify_number():
 
     # Determine if the number is an Armstrong number
     def is_armstrong(n):
-        digits = [int(d) for d in str(n)]
+        if n < 0:
+            return False
+        digits = [int(d) for d in str(n) if d.isdigit()]
         return n == sum(d**len(digits) for d in digits)
 
     # Calculate the digit sum
-    digit_sum = sum(int(d) for d in str(number))
+    digit_sum = sum(-int(d) if number < 0 else int(d) for d in str(abs(number)))
 
     # Fetch a fun fact from the Numbers API
     fun_fact_response = requests.get(f"http://numbersapi.com/{number}/math")
